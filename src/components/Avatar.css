@@ -1,0 +1,15 @@
+.avatar {
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Dark mode */
+  
+  @media (prefers-color-scheme: dark) {
+    .avatar {
+      background-color: darkgray;
+    }
+  }
+  

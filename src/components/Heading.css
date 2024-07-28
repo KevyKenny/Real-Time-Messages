@@ -1,0 +1,21 @@
+.heading-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+  }
+  
+  .heading-title {
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin: 0;
+    font-family: "Nunito Sans", sans-serif;
+  }
+  
+  .heading-subtitle {
+    font-size: 0.8rem;
+    font-weight: 400;
+    margin: 0;
+    text-transform: uppercase;
+    font-family: "Nunito Sans", sans-serif;
+  }
+  

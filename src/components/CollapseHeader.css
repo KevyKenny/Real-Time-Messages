@@ -1,0 +1,43 @@
+.collapse-header {
+    background-color: #eef6fd;
+    width: 100%;
+  }
+  
+  .ion-align-items-end {
+    text-align: right;
+  }
+  
+  .ion-align-items-center {
+    text-align: center;
+    margin: 10px;
+  }
+  
+  .collapse-header ion-grid ion-col {
+    padding: 0 !important;
+  }
+  
+  .collapse-header h1 {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 22px;
+    text-align: center;
+    color: #000000;
+    opacity: 0.85;
+    margin: 0;
+  }
+  
+  .profile-btn {
+    width: 48px;
+    height: 48px;
+    float: right;
+    margin-top: 10px;
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    .collapse-header {
+      background-color: #1f1f1f;
+    }
+  }
+  

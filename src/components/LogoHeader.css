@@ -1,0 +1,17 @@
+.logo-container {
+  padding: 10px 20px;
+}
+
+.button-with-badge {
+  position: relative;
+}
+
+.button-without-padding {
+  padding: 0;
+}
+
+.badge-container {
+  position: absolute;
+  top: 2;
+  right: -5px;
+}

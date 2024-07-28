@@ -1,0 +1,33 @@
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+    width: 100%;
+  }
+  
+  .profile-avatar {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 16px;
+  }
+  
+  .profile-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+  
+  .profile-email {
+    margin-bottom: 16px;
+  }
+
+  .profile-details {
+    margin: 16px 0;
+    width: 90%;
+  }
+  
+  .profile-button {
+    width: 90%;
+    margin-top: 100px;
+  }

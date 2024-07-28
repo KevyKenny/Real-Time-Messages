@@ -1,0 +1,38 @@
+.count-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px 20px;
+    width: 100%;
+}
+
+.count {
+    font-size: 1.7rem;
+    font-weight: 700;
+    font-family: 'Nunito Sans', sans-serif;
+    margin-right: 20px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 25px;
+    height: 50px;
+    width: 50px;
+    border: solid 3px #D3A52E;
+    display: flex;
+}
+
+#dashboard ion-card-content {
+    padding: 0;
+}
+
+.count-container h2 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.count-container p {
+    font-size: 0.8rem;
+    margin: 3px 0;
+    font-family: 'Nunito Sans', sans-serif;
+}

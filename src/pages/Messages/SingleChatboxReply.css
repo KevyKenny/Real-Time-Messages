@@ -1,0 +1,107 @@
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 10px;
+  overflow-y: auto;
+  background-color: #ffffff;
+  /* Dark mode background */
+  color: #0b0b0b;
+  /* Light text color for dark mode */
+}
+
+.chat-list {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-message {
+  display: flex !important;
+  align-items: flex-end !important;
+  margin-bottom: 15px !important;
+}
+
+.sent {
+  justify-content: flex-end !important;
+}
+
+.received {
+  flex-direction: row !important;
+  justify-content: flex-start !important;
+}
+
+.message-bubble {
+  max-width: 70% !important;
+  padding: 10px !important;
+  border-radius: 15px !important;
+  position: relative;
+  display: flex !important;
+  flex-direction: column !important;
+  background-color: #f1f1f1 !important;
+  color: #000000 !important;
+}
+
+.sent-bubble {
+  background-color: #007bff !important;
+  color: #ffffff !important;
+  align-items: flex-end !important;
+}
+
+.received-bubble {
+  background-color: #fcf7f7 !important;
+  color: #444444 !important;
+  align-items: flex-start !important;
+}
+
+.message-sender {
+  font-weight: bold !important;
+  font-size: 0.8rem !important;
+  margin-bottom: 5px !important;
+
+}
+
+.message-text {
+  margin: 0 !important;
+}
+
+.message-time {
+  font-size: 0.7em !important;
+  color: #cccccc !important;
+  margin-top: 5px !important;
+  align-self: flex-end !important;
+}
+
+.message-avatar {
+  margin: 0 5px !important;
+}
+
+.user-message-avatar {
+  margin-left: 30px;
+}
+
+/* Dark mode */
+
+@media (prefers-color-scheme: dark) {
+  .chat-container {
+    background-color: #1e1e1e;
+  }
+
+  /* .message-bubble {
+        background-color: #013d50;
+        color: white;
+    } */
+
+  .sent-bubble {
+    background-color: #013d50 !important;
+    color: white !important;
+  }
+
+  .received-bubble {
+    background-color: #444444 !important;
+    color: white !important;
+  }
+}
