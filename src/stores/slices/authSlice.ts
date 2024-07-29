@@ -103,8 +103,6 @@ const authSlice = (set: any, get: any) => ({
       return null;
     }
     if (user) {
-      debugger;
-
       set({ user });
       set({ authenticated: true });
       set({ loading: false });
