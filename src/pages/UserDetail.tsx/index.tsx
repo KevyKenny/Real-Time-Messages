@@ -16,6 +16,7 @@ import {
   IonAlert,
   IonList,
   IonToggle,
+  IonFooter
 } from "@ionic/react";
 import {
   locationOutline,
@@ -148,30 +149,33 @@ const UserDetail: React.FC = () => {
 
   return (
     <IonPage>
+      <IonHeader>
+        <IonToolbar>
+          {renderToolbar()}
+          <div className="section">
+            <IonSegment value={segment} color="primary">
+              <IonSegmentButton
+                value="details"
+                onClick={() => setSegment("details")}
+              >
+                <IonLabel>User Details</IonLabel>
+              </IonSegmentButton>
+              <IonSegmentButton
+                value="messages"
+                onClick={() => setSegment("messages")}
+              >
+                <div className="flex-align-center">
+                  <IonLabel style={{ marginRight: 7 }}>Messages</IonLabel>{" "}
+                  {messages?.length > 0 && (
+                    <IonBadge color="danger">{messages?.length}</IonBadge>
+                  )}
+                </div>
+              </IonSegmentButton>
+            </IonSegment>
+          </div>
+        </IonToolbar>
+      </IonHeader>
       <IonContent fullscreen>
-        <IonHeader>{renderToolbar()}</IonHeader>
-        <div className="section">
-          <IonSegment value={segment} color="primary">
-            <IonSegmentButton
-              value="details"
-              onClick={() => setSegment("details")}
-            >
-              <IonLabel>User Details</IonLabel>
-            </IonSegmentButton>
-            <IonSegmentButton
-              value="messages"
-              onClick={() => setSegment("messages")}
-            >
-              <div className="flex-align-center">
-                <IonLabel style={{ marginRight: 7 }}>Messages</IonLabel>{" "}
-                {messages?.length > 0 && (
-                  <IonBadge color="danger">{messages?.length}</IonBadge>
-                )}
-              </div>
-            </IonSegmentButton>
-          </IonSegment>
-        </div>
-
         <div className="segment-section">
           {segment === "details" && (
             <div className="details-segement-section">
@@ -199,13 +203,19 @@ const UserDetail: React.FC = () => {
                     </IonList>
                   </div>
                 </div>
-                <ChatBoxContent handleSendMessage={handleSendMessage} />
               </div>
             </>
           )}
         </div>
       </IonContent>
-    </IonPage>
+      {segment === "messages" && (
+        <IonFooter>
+          <IonToolbar>
+            <ChatBoxContent handleSendMessage={handleSendMessage} />
+          </IonToolbar>
+        </IonFooter>
+      )}
+    </IonPage >
   );
 };
 

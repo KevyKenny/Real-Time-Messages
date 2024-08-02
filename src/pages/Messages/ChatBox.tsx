@@ -6,6 +6,7 @@ import {
     IonButtons,
     IonCol,
     IonContent,
+    IonFooter,
     IonGrid,
     IonHeader,
     IonIcon,
@@ -97,57 +98,77 @@ const ChatBoxxx: React.FC = () => {
 
     return (
         <IonPage>
+            <IonHeader>
+                <IonToolbar>
+                    <IonButtons slot="start">
+                        <IonBackButton defaultHref="messages" />
+                    </IonButtons>
+                    <div className="chat-header-container">
+                        <IonTitle className="chat-header">
+                            {chat?.chat_data?.first_name}{" "}{chat?.chat_data?.last_name}
+                        </IonTitle>
+                    </div>
+                </IonToolbar>
+            </IonHeader>
             <IonContent>
-                <IonHeader>
-                    <IonToolbar>
-                        <IonButtons slot="start">
-                            <IonBackButton defaultHref="messages" />
-                        </IonButtons>
-                        <div className="chat-header-container">
-                            <IonTitle className="chat-header">{chat?.chat_data?.first_name}{" "}{chat?.chat_data?.last_name}</IonTitle>
-                        </div>
-                    </IonToolbar>
-                </IonHeader>
-                <div className="inbox-chatting-box" style={{ height: '70vh', overflowY: 'auto' }}>
+                {/* <div className="inbox-chatting-box">
                     <IonList className="chatting_content">
                         <SingleChatboxReply messages={messages} currentUser={profile} />
                     </IonList>
-                </div>
-                <div className="chatbox-content-container">
-                    <div className="mi_text">
-                        <form onSubmit={handleSubmit}>
-                            <IonGrid>
-                                <IonRow>
-                                    <IonCol>
-                                        <IonItem>
-                                            <IonTextarea
-                                                rows={1}
-                                                autoGrow
-                                                placeholder="Type your message here..."
-                                                className="form-control"
-                                                value={content}
-                                                onIonInput={(e) => setContent(e.detail.value!)}
-                                                required
-                                            />
-                                        </IonItem>
-                                    </IonCol>
-                                    <IonCol size="auto">
-                                        <IonButton type="submit">
-                                            Send
-                                            <IonIcon
-                                                className="message-send-button"
-                                                icon={sendOutline}
-                                                style={{ marginLeft: 5 }}
-                                            />
-                                        </IonButton>
-                                    </IonCol>
-                                </IonRow>
-                            </IonGrid>
-                        </form>
+                </div> */}
+                <>
+                    <div className="messages-segement-section">
+                        <div className="mi_text">
+                            <div className="inbox_chatting_box">
+                                <IonList className="chatting_content">
+                                    <SingleChatboxReply
+                                        messages={messages}
+                                        currentUser={profile}
+                                    />
+                                </IonList>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </>
             </IonContent>
-        </IonPage>
+            <IonFooter>
+                <IonToolbar>
+                    <div className="chatbox-content-container">
+                        <div className="mi_text">
+                            <form onSubmit={handleSubmit}>
+                                <IonGrid>
+                                    <IonRow>
+                                        <IonCol>
+                                            <IonItem>
+                                                <IonTextarea
+                                                    rows={1}
+                                                    autoGrow
+                                                    placeholder="Type your message here..."
+                                                    className="form-control"
+                                                    value={content}
+                                                    onIonInput={(e) => setContent(e.detail.value!)}
+                                                    required
+                                                />
+                                            </IonItem>
+                                        </IonCol>
+                                        <IonCol size="auto">
+                                            <IonButton type="submit">
+                                                Send
+                                                <IonIcon
+                                                    className="message-send-button"
+                                                    icon={sendOutline}
+                                                    style={{ marginLeft: 5 }}
+                                                />
+                                            </IonButton>
+                                        </IonCol>
+                                    </IonRow>
+                                </IonGrid>
+                            </form>
+                        </div>
+                    </div>
+                </IonToolbar>
+            </IonFooter>
+        </IonPage >
     );
 };
 
