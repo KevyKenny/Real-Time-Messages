@@ -53,7 +53,7 @@ const Messages: React.FC = () => {
   }));
 
   return (
-    <IonPage>
+    <IonPage id="messages">
       <IonHeader>
         <IonToolbar>
           <IonTitle>Messages</IonTitle>
@@ -65,7 +65,7 @@ const Messages: React.FC = () => {
             <IonTitle size="large">Messages</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <div className="inbox_user_list">
+        <div className="inbox_user_list ion-padding">
           <IonList>
             {singleUserContent &&
               singleUserContent.map((conversation: any) => (
