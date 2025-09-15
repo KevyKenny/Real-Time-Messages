@@ -1,5 +1,7 @@
 {
   "name": "Kenny Real Time Messaging",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "react-vite"
 }

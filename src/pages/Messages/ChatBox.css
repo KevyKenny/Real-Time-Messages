@@ -1,5 +1,0 @@
-.textarea-max-height {
-    max-height: 5 * 1.5em;
-    /* 5 rows at 1.5em per row */
-    overflow-y: auto;
-}
