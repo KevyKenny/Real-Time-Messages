@@ -74,7 +74,7 @@ const UserDetail: React.FC = () => {
       await getMessages(parseInt(id));
     };
     fetchData();
-  }, [getUserById, id, getMessages]);
+  }, [getUserById, id, getMessages, realTimeMessages]);
 
   const renderToolbar = () => {
     return (

@@ -103,7 +103,7 @@ const authSlice = (set: any, get: any) => ({
       return null;
     }
     if (user) {
-      set({ user });
+      set({ user: user });
       set({ authenticated: true });
       set({ loading: false });
     }

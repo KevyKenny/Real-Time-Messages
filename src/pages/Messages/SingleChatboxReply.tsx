@@ -25,7 +25,6 @@ const SingleChatboxReply: React.FC<ContactsProps> = ({
   };
 
   const handleScroll = () => {
-    console.log("Hqqqqqreee")
     if (chatContainerRef.current) {
       console.log("Hereee")
       const { scrollTop, scrollHeight, clientHeight } =
