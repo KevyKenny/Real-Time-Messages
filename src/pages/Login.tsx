@@ -30,29 +30,21 @@ const Login: React.FC = () => {
     setIsDark(prefersDark.matches);
   }, []);
 
-  const { loginWithEmail, authenticated, profile, getUser } = useStore(
+  const { loginWithEmail, authenticated, profile } = useStore(
     (state: any) => ({
       loginWithEmail: state.loginWithEmail,
       authenticated: state.authenticated,
       profile: state.profile,
-      getUser: state.getUser,
     })
   );
 
   const [presentToast] = useIonToast();
 
   useEffect(() => {
-    getUser();
-  }, [getUser]);
-
-  useEffect(() => {
     if (authenticated && !profile) {
       navigation.push("/register-new-user", "forward", "replace");
     }
-    if (profile) {
-      navigation.push("/home", "forward", "replace");
-    }
-  }, [profile]);
+  }, [authenticated, profile, navigation]);
 
   const handleLoginWithEmail = async () => {
     if (!email || !password) {
@@ -72,7 +64,6 @@ const Login: React.FC = () => {
         color: "danger",
       });
     } else {
-      await getUser();
       navigation.push("/home", "forward", "replace");
     }
   };

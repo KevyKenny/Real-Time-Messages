@@ -81,7 +81,7 @@ const UserDetail: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref="dashboard" />
+            <IonBackButton defaultHref="/home" />
           </IonButtons>
           {selectedUser?.first_name} {" "} {selectedUser?.last_name}
           <IonButtons slot="end">

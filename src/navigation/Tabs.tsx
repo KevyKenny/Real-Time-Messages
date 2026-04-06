@@ -6,28 +6,26 @@ import AllUser from "../pages/AllUsers";
 import Messages from "../pages/Messages";
 import MyProfile from "../pages/MyProfile";
 import PrivateRoute from "../PrivateRoute";
-import Login from "../pages/Login";
 
 const Tabs: React.FC<{ authenticated: boolean }> = ({ authenticated }) => (
     <IonTabs>
         <IonRouterOutlet>
-            <Route path="/login" exact component={Login} />
             <PrivateRoute
                 path="/home"
                 exact
-                authenticated={true}
+                authenticated={authenticated}
                 redirectPath="/login"
                 component={AllUser}
             />
             <PrivateRoute
                 path="/messages"
-                authenticated={true}
+                authenticated={authenticated}
                 redirectPath="/login"
                 component={Messages}
             />
             <PrivateRoute
                 path="/my-profile"
-                authenticated={true}
+                authenticated={authenticated}
                 redirectPath="/login"
                 component={MyProfile}
             />

@@ -101,7 +101,7 @@ const ChatBoxxx: React.FC = () => {
             <IonHeader>
                 <IonToolbar>
                     <IonButtons slot="start">
-                        <IonBackButton defaultHref="messages" />
+                        <IonBackButton defaultHref="/messages" />
                     </IonButtons>
                     <div className="chat-header-container">
                         <IonTitle className="chat-header">

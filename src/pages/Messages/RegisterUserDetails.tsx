@@ -6,15 +6,12 @@ import {
     IonInput,
     IonLabel,
     IonPage,
-    IonRouterLink,
     IonRow,
     IonText,
-    IonThumbnail,
+    useIonToast,
 } from "@ionic/react";
-import { mdiCamera } from "@mdi/js";
-// import Icon from "@mdi/react";
 import "../Auth.css";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import useStore from "../../stores/useStore";
 import { useHistory } from "react-router";
 import Logo from "../../components/Logo";
@@ -32,10 +29,14 @@ type FormData = {
 };
 
 const RegisterUserDetails: React.FC = () => {
-    const { user, createNewUser } = useStore(
+    const [presentToast] = useIonToast();
+    const fileInputRef = useRef<HTMLInputElement>(null);
+    const { user, createNewUser, uploadAvatarFile, loading } = useStore(
         (state: any) => ({
             user: state.user,
             createNewUser: state.createNewUser,
+            uploadAvatarFile: state.uploadAvatarFile,
+            loading: state.loading,
         })
     );
     const history = useHistory();
@@ -52,6 +53,8 @@ const RegisterUserDetails: React.FC = () => {
 
     const [data, setData] = useState<FormData>(INITIAL_FORM_DATA);
     const [error, setError] = useState<string | null>(null);
+    const [avatarPreview, setAvatarPreview] = useState<string>("");
+    const [avatarFile, setAvatarFile] = useState<File | null>(null);
 
     const updateFields = (fields: any) => {
         setData((prev) => ({ ...prev, ...fields }));
@@ -87,8 +90,24 @@ const RegisterUserDetails: React.FC = () => {
             return;
         } else {
             setError(null);
+            let avatarUrl = data.avatar_url || "";
+
+            if (avatarFile) {
+                const uploadResponse = await uploadAvatarFile(avatarFile);
+                if (uploadResponse?.error) {
+                    presentToast({
+                        message: uploadResponse.error.message || "Avatar upload failed.",
+                        duration: 2500,
+                        color: "danger",
+                    });
+                    return;
+                }
+                avatarUrl = uploadResponse.data.publicUrl;
+            }
+
             const payload = {
                 ...data,
+                avatar_url: avatarUrl,
                 uuid: user?.id,
                 email: user.email,
             };
@@ -97,6 +116,17 @@ const RegisterUserDetails: React.FC = () => {
                 history.push("/home");
             }
         }
+    };
+
+    const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) {
+            return;
+        }
+
+        setAvatarFile(file);
+        const localPreview = URL.createObjectURL(file);
+        setAvatarPreview(localPreview);
     };
 
     return (
@@ -111,30 +141,41 @@ const RegisterUserDetails: React.FC = () => {
                             </IonText>
                             {error && <IonText color="danger">{error}</IonText>}
                             <div className="section">
-                                {/* <IonRow className="ion-justify-content-center profile-avatar">
-                                <IonCol size="6">
-                                    <IonThumbnail>
+                                <IonRow className="ion-justify-content-center ion-margin-bottom">
+                                    <IonCol size="6" className="ion-text-center">
                                         <img
                                             src={
-                                                data.avatar_url
-                                                    ? data.avatar_url
-                                                    : "https://ionicframework.com/docs/img/demos/avatar.svg"
+                                                avatarPreview ||
+                                                data.avatar_url ||
+                                                "https://ionicframework.com/docs/img/demos/avatar.svg"
                                             }
-                                            alt="avatar"
-                                            width="100%"
+                                            alt="Avatar preview"
+                                            style={{
+                                                width: 96,
+                                                height: 96,
+                                                borderRadius: "50%",
+                                                objectFit: "cover",
+                                                marginBottom: 8,
+                                            }}
                                         />
-                                    </IonThumbnail>
-                                    <div className="camera-button">
+                                        <input
+                                            ref={fileInputRef}
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={handleAvatarChange}
+                                            style={{ display: "none" }}
+                                            aria-label="Upload avatar"
+                                        />
                                         <IonButton
                                             size="small"
-                                            shape="round"
-                                            onClick={() => console.log("Take picture")}
+                                            fill="outline"
+                                            onClick={() => fileInputRef.current?.click()}
+                                            disabled={loading}
                                         >
-                                             <Icon path={mdiCamera} size={1} color="#fff" /> 
+                                            Upload Avatar
                                         </IonButton>
-                                    </div>
-                                </IonCol>
-                            </IonRow> */}
+                                    </IonCol>
+                                </IonRow>
                                 <div className="section">
                                     <IonGrid>
                                         <IonRow>
@@ -215,6 +256,7 @@ const RegisterUserDetails: React.FC = () => {
                                             expand="block"
                                             shape="round"
                                             type="submit"
+                                            disabled={loading}
                                         >
                                             Finish
                                         </IonButton>

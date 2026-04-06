@@ -2,10 +2,12 @@ import useStore from "./stores/useStore";
 import { Redirect, Route, Switch } from "react-router-dom";
 import {
   IonApp,
+  IonLoading,
   IonRouterOutlet,
   setupIonicReact,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
+import { useEffect } from "react";
 import Login from "./pages/Login";
 import Tabs from "./navigation/Tabs";
 import ChatBox from "./pages/Messages/ChatBox";
@@ -47,46 +49,66 @@ import RegisterUserDetails from "./pages/Messages/RegisterUserDetails";
 setupIonicReact();
 
 const App: React.FC = () => {
-  const authenticated = useStore((state: any) => state.authenticated);
+  const { authenticated, authHydrated, profile, getUser } = useStore((state: any) => ({
+    authenticated: state.authenticated,
+    authHydrated: state.authHydrated,
+    profile: state.profile,
+    getUser: state.getUser,
+  }));
 
-  const redirectPaths = [
-    "/login",
-    // "/register",
-    // "/forgot-password",
-    // "/reset-password",
-    // "/login-google",
-  ];
+  useEffect(() => {
+    getUser();
+  }, [getUser]);
 
-  const shouldRedirect =
-    !authenticated && !redirectPaths.includes(window.location.pathname);
-
-  const redirectPath = shouldRedirect ? "/login" : window.location.pathname;
+  if (!authHydrated) {
+    return (
+      <IonApp>
+        <IonLoading isOpen message="Loading..." />
+      </IonApp>
+    );
+  }
 
   return (
     <IonApp>
       <IonReactRouter>
         <IonRouterOutlet>
           <Switch>
-            <Route path="/login" exact component={Login} />
-            <Route path="/register" exact component={RegisterNewUser} />
+            <Route
+              path="/login"
+              exact
+              render={() =>
+                authenticated ? (
+                  <Redirect to={profile ? "/home" : "/register-new-user"} />
+                ) : (
+                  <Login />
+                )
+              }
+            />
+            <Route
+              path="/register"
+              exact
+              render={() => (authenticated ? <Redirect to="/home" /> : <RegisterNewUser />)}
+            />
+            <Route
+              path="/register-new-user"
+              exact
+              render={() => (authenticated ? <RegisterUserDetails /> : <Redirect to="/login" />)}
+            />
             <Route
               path="/message/:id"
               exact
-              render={() => authenticated ? <ChatBox /> : <Redirect to="/login" />}
+              render={() => (authenticated ? <ChatBox /> : <Redirect to="/login" />)}
             />
             <Route
               path="/user-details/:id"
               exact
-              render={() => authenticated ? <UsertDetail /> : <Redirect to="/login" />}
+              render={() => (authenticated ? <UsertDetail /> : <Redirect to="/login" />)}
             />
-            {authenticated ? (
-              <>
-                <Route path="/" component={() => <Tabs authenticated={authenticated} />} />
-                <Route path="/register-new-user" exact component={RegisterUserDetails} />
-              </>
-            ) : (
-              <Redirect to="/login" />
-            )}
+            <Route exact path="/dashboard" render={() => <Redirect to="/home" />} />
+            <Route
+              path="/"
+              render={() => (authenticated ? <Tabs authenticated={authenticated} /> : <Redirect to="/login" />)}
+            />
           </Switch>
         </IonRouterOutlet>
       </IonReactRouter>

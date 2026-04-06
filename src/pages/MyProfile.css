@@ -11,6 +11,14 @@
     height: 150px;
     margin-bottom: 16px;
   }
+
+.profile-file-input {
+  display: none;
+}
+
+.profile-avatar-button {
+  margin-bottom: 12px;
+}
   
   .profile-name {
     font-size: 24px;
@@ -26,8 +34,14 @@
     margin: 16px 0;
     width: 90%;
   }
+
+.profile-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
   
   .profile-button {
     width: 90%;
-    margin-top: 100px;
+  margin-top: 24px;
   }
